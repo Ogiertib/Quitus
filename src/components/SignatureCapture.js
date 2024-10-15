@@ -1,7 +1,7 @@
 // src/components/SignatureCapture.js
 
 import React, { useRef } from 'react';
-import SignatureCanvas from '../react-signature-canvas';
+import SignatureCanvas from 'react-signature-canvas';
 
 const SignatureCapture = ({ onSave }) => {
     const sigCanvas = useRef(null);
