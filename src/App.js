@@ -26,25 +26,39 @@ const App = () => {
         setSignature(dataURL);
     };
 
-    const handleGeneratePDF = async() => {
+    const handleGeneratePDF = () => {
         const pdfBlob = generatePDF(vmcData, roomData, signature, technician, apartmentName, project, floor);
-        sharePDF(pdfBlob);
+        return pdfBlob;
     };
 
-    const sharePDF = (pdfBlob) => {
-        const pdfUrl = URL.createObjectURL(pdfBlob);
+    const handleDownloadPDF = () => {
+        const pdfBlob = handleGeneratePDF();
+        const url = URL.createObjectURL(pdfBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Quitus_Logement.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
+    const handleSharePDF = async () => {
+        const pdfBlob = handleGeneratePDF();
+        const url = URL.createObjectURL(pdfBlob);
+
+        // Vérifiez si l'API de partage est disponible
         if (navigator.share) {
-            navigator.share({
-                title: 'Partagez votre PDF',
-                url: pdfUrl,
-            }).then(() => {
-                console.log('Partage réussi !');
-            }).catch((error) => {
-                console.error('Erreur de partage : ', error);
-            });
+            try {
+                await navigator.share({
+                    title: 'Quitus Logement',
+                    text: 'Voici le document PDF.',
+                    url: url, // URL du PDF
+                });
+            } catch (error) {
+                console.error('Erreur lors du partage:', error);
+            }
         } else {
-            alert("L'API de partage n'est pas supportée sur ce navigateur.");
+            alert("L'API de partage n'est pas disponible sur ce navigateur.");
         }
     };
 
@@ -82,7 +96,10 @@ const App = () => {
             <div className="signature-container">
                 <SignatureCapture onSave={handleSaveSignature} />
             </div>
-            <button onClick={handleGeneratePDF}>Générer et partager le PDF</button>
+            {/* Boutons de téléchargement et de partage */}
+            <button onClick={handleDownloadPDF}>Télécharger le PDF</button>
+            <button onClick={handleSharePDF}>Partager le PDF</button>
+
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <p style={{ color: 'blue', margin: '0' }}>D2H réseau QUALITY AIR</p>
                 <p style={{ color: 'black', margin: '0' }}>64 route de saint Thomas - 73540 ESSERT BLAY - 06 73 98 73 73</p>

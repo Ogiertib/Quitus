@@ -83,7 +83,7 @@ const VmcTable = ({ onSave }) => {
                         )}
 
                         {/* Afficher le nom de la photo en dessous */}
-                        {vmc.photoName && <p className="photo-name">{vmc.photoName}</p>}
+                        
 
                         {/* Bouton de suppression uniquement si la photo est présente */}
                         {vmc.photo && (
@@ -94,6 +94,7 @@ const VmcTable = ({ onSave }) => {
                                 &ndash;
                             </button>
                         )}
+                        {vmc.photoName && <p className="photo-name">{vmc.photoName}</p>}
                     </div>
                 </div>
             ))}
