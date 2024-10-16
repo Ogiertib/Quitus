@@ -14,7 +14,6 @@ const App = () => {
     const [apartmentName, setApartmentName] = useState('');
     const [project, setProject] = useState('');
     const [floor, setFloor] = useState('');
-    const [recipientEmail, setRecipientEmail] = useState(''); // Email du destinataire
 
     const handleSaveData = (data) => {
         setVmcData(data);
@@ -54,27 +53,22 @@ const App = () => {
                     Technicien:
                     <input type="text" value={technician} onChange={(e) => setTechnician(e.target.value)} />
                 </label>
-                <br />
+           
                 <label>
                     Appartement:
                     <input type="text" value={apartmentName} onChange={(e) => setApartmentName(e.target.value)} />
                 </label>
-                <br />
+            
                 <label>
                     Chantier:
                     <input type="text" value={project} onChange={(e) => setProject(e.target.value)} />
                 </label>
-                <br />
+              
                 <label>
                     Étage:
                     <input type="text" value={floor} onChange={(e) => setFloor(e.target.value)} />
                 </label>
-                <br />
-                <label>
-                    Email du destinataire:
-                    <input type="email" value={recipientEmail} onChange={(e) => setRecipientEmail(e.target.value)} />
-                </label>
-                <br />
+            
             </div>
             <div className="table-container">
                 <VmcTable onSave={handleSaveData} />

@@ -6,40 +6,71 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     const doc = new jsPDF();
     const margin = 10;
     const columnWidth = 60; // Largeur des colonnes
-    const rowHeight = 10; // Hauteur des lignes
-    const titleFontSize = 16; // Taille de la police pour le titre
-    const bodyFontSize = 10; // Taille de la police pour le corps
+    const rowHeight = 8; // Hauteur des lignes
+    const titleFontSize = 20; // Taille de la police pour le titre
+    const bodyFontSize = 10;// Taille de la police pour le corps
     const footerFontSize = 8; // Taille de la police pour le pied de page
 
     // Ajouter les logos en haut à gauche et en haut à droite
-    doc.addImage(logoD2H, 'JPEG', margin - 5, margin, 50, 20); // Logo D2H en haut à gauche
+    doc.addImage(logoD2H, 'JPEG', margin - 5, margin, 50, 15); // Logo D2H en haut à gauche
+   
     doc.addImage(logoQualibat, 'PNG', doc.internal.pageSize.getWidth() - margin - 40, margin - 5, 40, 40); // Logo Qualibat en haut à droite
-
-    // Informations générales
+    // Titre
     doc.setFontSize(titleFontSize);
+    doc.setFont('helvetica', 'normal'); // Police normale pour le texte
     doc.text('Quitus logement', margin + 70, margin + 10); // Centré
+
+    // Souligner le texte
+    const textWidth = doc.getTextWidth('Quitus logement'); // Obtenir la largeur du texte
+    const textX = margin + 70;
+    const textY = margin + 11; // Position Y pour la ligne juste sous le texte
+    doc.line(textX, textY, textX + textWidth, textY); // Dessiner une ligne sous le texte
+    // Informations générales
     doc.setFontSize(bodyFontSize);
-    doc.text(`Technicien: ${technician}`, margin + 60, margin + 20);
-    doc.text(`Appartement: ${apartmentName}`, margin + 60, margin + 30);
-    doc.text(`Chantier: ${project}`, margin + 60, margin + 40);
-    doc.text(`Étage: ${floor}`, margin + 60, margin + 50);
+
+    // Technicien
+    doc.setFont('helvetica', 'normal'); // Police normale pour le label
+    doc.text('Technicien:', margin + 60, margin + 20);
+    doc.setFont('helvetica', 'bold'); // Police en gras pour la variable
+    doc.text(technician, margin + 80, margin + 20); 
+    
+    // Appartement
+    doc.setFont('helvetica', 'normal'); // Police normale pour le label
+    doc.text('Appartement:', margin + 60, margin + 30);
+    doc.setFont('helvetica', 'bold'); // Police en gras pour la variable
+    doc.text(apartmentName, margin + 85, margin + 30);
+    
+    // Chantier
+    doc.setFont('helvetica', 'normal'); // Police normale pour le label
+    doc.text('Chantier:', margin + 60, margin + 40);
+    doc.setFont('helvetica', 'bold'); // Police en gras pour la variable
+    doc.text(project, margin + 80, margin + 40);
+    
+    // Étage
+    doc.setFont('helvetica', 'normal'); // Police normale pour le label
+    doc.text('Étage:', margin + 60, margin + 50);
+    doc.setFont('helvetica', 'bold'); // Police en gras pour la variable
+    doc.text(floor, margin + 75, margin + 50);
 
     // Création du tableau pour les VMC
     let currentY = margin + 70; // Position de départ pour le tableau
 
     // Dessiner les en-têtes pour VMC
-    doc.text('Nom', margin, currentY);
+    doc.rect(margin, currentY-5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
+    doc.setFont('helvetica', 'bold'); // Définir la police en gras
+    doc.text('Nom', margin +2, currentY);
     doc.text('Présent', margin + columnWidth, currentY);
-    doc.text('Remarques', margin + columnWidth * 2, currentY);
+    doc.text('Remarques', margin -30 + columnWidth * 2, currentY);
     currentY += rowHeight;
 
     // Dessiner les lignes et les données pour les VMC
     vmcData.forEach(vmc => {
+       
         doc.setDrawColor(0, 0, 0); // Couleur des lignes (noir)
         doc.rect(margin, currentY - 5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
-        doc.text(vmc.name, margin, currentY);
-        doc.text(vmc.present, margin + columnWidth, currentY);
-        doc.text(vmc.remarks, margin + columnWidth * 2, currentY);
+        doc.text(vmc.name, margin +2 , currentY);
+        doc.text(vmc.present, margin +2 + columnWidth, currentY);
+        doc.text(vmc.remarks, margin -30 + columnWidth * 2, currentY);
         currentY += rowHeight;
     });
 
@@ -48,18 +79,20 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     currentY += rowHeight; // Pour l'espacement des en-têtes
 
     // Dessiner les en-têtes pour les pièces
-    doc.text('Nom', margin, currentY);
+    doc.rect(margin, currentY-5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
+    doc.setFont('helvetica', 'bold'); // Définir la police en gras
+    doc.text('Nom', margin +2, currentY);
     doc.text('Présent', margin + columnWidth, currentY);
-    doc.text('Remarques', margin + columnWidth * 2, currentY);
+    doc.text('Remarques', margin -30 + columnWidth * 2, currentY);
     currentY += rowHeight;
 
     // Dessiner les lignes et les données pour les pièces
     roomData.forEach(room => {
         doc.setDrawColor(0, 0, 0); // Couleur des lignes (noir)
-        doc.rect(margin, currentY - 5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
-        doc.text(room.name, margin, currentY);
-        doc.text(room.present, margin + columnWidth, currentY);
-        doc.text(room.remarks, margin + columnWidth * 2, currentY);
+        doc.rect(margin, currentY-5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
+        doc.text(room.name, margin +2, currentY );
+        doc.text(room.present, margin +2  + columnWidth, currentY);
+        doc.text(room.remarks, margin -30 + columnWidth * 2, currentY);
         currentY += rowHeight;
     });
 
@@ -79,39 +112,71 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     doc.setTextColor(0, 0, 0); // Couleur noir
     doc.text('Siret 504 186 545 00027 / code APE 8122 Z / N°intracommunautaire FR4150418654', margin + 40, footerY + 10);
 
-    // Nouvelle page pour les photos
-    doc.addPage();
-    doc.setFontSize(titleFontSize);
-    doc.text('Photos des VMC et des pièces:', margin, margin + 10);
-    let photoY = margin + 30; // Position Y pour les photos
+// Nouvelle page pour les photos
+doc.addPage();
+doc.setFontSize(titleFontSize);
+doc.text('Photos des VMC et des pièces:', margin, margin + 10);
+let photoY = margin + 30; // Position Y pour les photos
 
-    const photoHeight = 60; // Hauteur des images de photos
+const photoHeight = 80; // Hauteur fixe initiale des photos
+const maxWidth = doc.internal.pageSize.width - 2 * margin; // Largeur maximale autorisée pour les photos
 
-    // Ajout de photos VMC
-    vmcData.forEach(vmc => {
-        if (vmc.photo) {
-            if (photoY + photoHeight > doc.internal.pageSize.height - margin) {
-                doc.addPage(); // Ajouter une nouvelle page si nécessaire
-                photoY = margin + 20; // Réinitialiser la position Y pour la nouvelle page
-            }
-            doc.text(vmc.name, margin + 20, photoY - 5);
-            doc.addImage(vmc.photo, 'JPEG', margin, photoY, 70, photoHeight);
-            photoY += photoHeight + 10; // Espacement entre les photos
+// Fonction pour obtenir la taille ajustée de l'image tout en respectant les contraintes de largeur et hauteur
+const getScaledDimensions = (imgWidth, imgHeight, targetHeight, maxWidth) => {
+    const imgRatio = imgWidth / imgHeight; // Ratio original de l'image
+
+    // Si la largeur de l'image dépasse la largeur max, ajuster
+    if (imgWidth > maxWidth) {
+        const scaledWidth = maxWidth;
+        const scaledHeight = maxWidth / imgRatio; // Hauteur ajustée
+        return { width: scaledWidth, height: scaledHeight };
+    }
+
+    // Sinon, ajuster la hauteur
+    const scaledHeight = targetHeight;
+    const scaledWidth = targetHeight * imgRatio; // Largeur ajustée pour conserver le ratio
+    return { width: scaledWidth, height: scaledHeight };
+};
+
+// Ajout de photos VMC
+vmcData.forEach(vmc => {
+    if (vmc.photo) {
+        const image = vmc.photo; // Supposons que 'vmc.photo' contient une image en base64
+
+        // Utiliser la fonction getImageProperties de jsPDF pour obtenir la largeur/hauteur de l'image
+        const imgProps = doc.getImageProperties(image);
+        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, photoHeight, maxWidth);
+
+        if (photoY + scaledHeight > doc.internal.pageSize.height - margin) {
+            doc.addPage(); // Ajouter une nouvelle page si nécessaire
+            photoY = margin + 20; // Réinitialiser la position Y pour la nouvelle page
         }
-    });
 
-    // Ajout de photos des pièces
-    roomData.forEach(room => {
-        if (room.photo) {
-            if (photoY + photoHeight > doc.internal.pageSize.height - margin) {
-                doc.addPage(); // Ajouter une nouvelle page si nécessaire
-                photoY = margin + 20; // Réinitialiser la position Y pour la nouvelle page
-            }
-            doc.text(room.name, margin + 20, photoY - 5);
-            doc.addImage(room.photo, 'JPEG', margin, photoY, 70, photoHeight);
-            photoY += photoHeight + 10; // Espacement entre les photos
+        doc.text(vmc.name, margin + 20, photoY - 5);
+        doc.addImage(image, 'JPEG', margin, photoY, scaledWidth, scaledHeight);
+        photoY += scaledHeight + 10; // Espacement entre les photos
+    }
+});
+
+// Ajout de photos des pièces
+roomData.forEach(room => {
+    if (room.photo) {
+        const image = room.photo; // Supposons que 'room.photo' contient une image en base64
+
+        // Utiliser la fonction getImageProperties de jsPDF pour obtenir la largeur/hauteur de l'image
+        const imgProps = doc.getImageProperties(image);
+        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, photoHeight, maxWidth);
+
+        if (photoY + scaledHeight > doc.internal.pageSize.height - margin) {
+            doc.addPage(); // Ajouter une nouvelle page si nécessaire
+            photoY = margin + 20; // Réinitialiser la position Y pour la nouvelle page
         }
-    });
+
+        doc.text(room.name, margin + 20, photoY - 5);
+        doc.addImage(image, 'JPEG', margin, photoY, scaledWidth, scaledHeight);
+        photoY += scaledHeight + 10; // Espacement entre les photos
+    }
+});
 
     // Retourner le PDF en tant que blob
     return doc.output('blob');
