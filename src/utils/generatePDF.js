@@ -8,7 +8,6 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     const columnWidth = 60; // Largeur des colonnes
     const rowHeight = 10; // Hauteur des lignes
     const titleFontSize = 16; // Taille de la police pour le titre
-    const headerFontSize = 12; // Taille de la police pour les en-têtes
     const bodyFontSize = 10; // Taille de la police pour le corps
     const footerFontSize = 8; // Taille de la police pour le pied de page
 
@@ -69,7 +68,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
         doc.text('Signature:', margin + 80, currentY + 10);
         doc.addImage(signature, 'PNG', margin + 40, currentY + 10, 100, 40);
     }
-    
+
     // Ajouter le texte en bas de la page
     const footerY = doc.internal.pageSize.height - margin - 10; // Position Y pour le pied de page
     doc.setFontSize(footerFontSize);
@@ -79,7 +78,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     doc.text('64 route de saint Thomas - 73540 ESSERT BLAY - 06 73 98 73 73', margin + 40, footerY + 5);
     doc.setTextColor(0, 0, 0); // Couleur noir
     doc.text('Siret 504 186 545 00027 / code APE 8122 Z / N°intracommunautaire FR4150418654', margin + 40, footerY + 10);
-    
+
     // Nouvelle page pour les photos
     doc.addPage();
     doc.setFontSize(titleFontSize);
