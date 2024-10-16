@@ -112,40 +112,48 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     doc.setTextColor(0, 0, 0); // Couleur noir
     doc.text('Siret 504 186 545 00027 / code APE 8122 Z / N°intracommunautaire FR4150418654', margin + 40, footerY + 10);
 
-// Nouvelle page pour les photos
+    // Nouvelle page pour les photos
 doc.addPage();
 doc.setFontSize(titleFontSize);
 doc.text('Photos des VMC et des pièces:', margin, margin + 10);
 let photoY = margin + 30; // Position Y pour les photos
 
-const photoHeight = 80; // Hauteur fixe initiale des photos
+const maxHeight = 100; // Hauteur maximale des photos
 const maxWidth = doc.internal.pageSize.width - 2 * margin; // Largeur maximale autorisée pour les photos
 
 // Fonction pour obtenir la taille ajustée de l'image tout en respectant les contraintes de largeur et hauteur
-const getScaledDimensions = (imgWidth, imgHeight, targetHeight, maxWidth) => {
+const getScaledDimensions = (imgWidth, imgHeight, maxHeight, maxWidth) => {
     const imgRatio = imgWidth / imgHeight; // Ratio original de l'image
 
-    // Si la largeur de l'image dépasse la largeur max, ajuster
-    if (imgWidth > maxWidth) {
-        const scaledWidth = maxWidth;
-        const scaledHeight = maxWidth / imgRatio; // Hauteur ajustée
-        return { width: scaledWidth, height: scaledHeight };
+    // Calculer la taille basée sur la contrainte de hauteur et de largeur
+    let scaledWidth = imgWidth;
+    let scaledHeight = imgHeight;
+
+    if (imgHeight > maxHeight) {
+        // Ajuster la hauteur si elle dépasse la contrainte, conserver le ratio
+        scaledHeight = maxHeight;
+        scaledWidth = maxHeight * imgRatio;
     }
 
-    // Sinon, ajuster la hauteur
-    const scaledHeight = targetHeight;
-    const scaledWidth = targetHeight * imgRatio; // Largeur ajustée pour conserver le ratio
+    if (scaledWidth > maxWidth) {
+        // Si la largeur ajustée dépasse la largeur maximale, ajuster en conséquence
+        scaledWidth = maxWidth;
+        scaledHeight = maxWidth / imgRatio;
+    }
+
     return { width: scaledWidth, height: scaledHeight };
 };
 
 // Ajout de photos VMC
+doc.setFontSize(bodyFontSize);
+
 vmcData.forEach(vmc => {
     if (vmc.photo) {
         const image = vmc.photo; // Supposons que 'vmc.photo' contient une image en base64
 
         // Utiliser la fonction getImageProperties de jsPDF pour obtenir la largeur/hauteur de l'image
         const imgProps = doc.getImageProperties(image);
-        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, photoHeight, maxWidth);
+        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, maxHeight, maxWidth);
 
         if (photoY + scaledHeight > doc.internal.pageSize.height - margin) {
             doc.addPage(); // Ajouter une nouvelle page si nécessaire
@@ -165,7 +173,7 @@ roomData.forEach(room => {
 
         // Utiliser la fonction getImageProperties de jsPDF pour obtenir la largeur/hauteur de l'image
         const imgProps = doc.getImageProperties(image);
-        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, photoHeight, maxWidth);
+        const { width: scaledWidth, height: scaledHeight } = getScaledDimensions(imgProps.width, imgProps.height, maxHeight, maxWidth);
 
         if (photoY + scaledHeight > doc.internal.pageSize.height - margin) {
             doc.addPage(); // Ajouter une nouvelle page si nécessaire
