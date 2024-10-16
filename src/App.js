@@ -45,30 +45,7 @@ const App = () => {
     };
 
     // Nouvelle fonction pour envoyer le PDF par e-mail
-    const handleSendEmail = async () => {
-        const pdfBlob = handleGeneratePDF();
-        const pdfFile = new File([pdfBlob], 'Quitus_Logement.pdf', { type: 'application/pdf' });
-
-        const formData = new FormData();
-        formData.append('file', pdfFile);
-        formData.append('to_email', recipientEmail); // Email du destinataire
-        formData.append('technician', technician);
-        formData.append('apartment', apartmentName);
-        formData.append('project', project);
-        formData.append('floor', floor);
-
-        try {
-            const response = await emailjs.send('service_3r4bpua', 'template_n17f6l7', formData, 'CyuwcTGtrVagVtVZO');
-            if (response.status === 200) {
-                alert('PDF envoyé avec succès !');
-            } else {
-                alert('Erreur lors de l\'envoi du PDF.');
-            }
-        } catch (error) {
-            console.error('Erreur lors de l\'envoi de l\'email:', error);
-        }
-    };
-
+   
     return (
         <div>
             <h1>Quitus Logement</h1>
@@ -110,7 +87,7 @@ const App = () => {
             </div>
             {/* Boutons de téléchargement et d'envoi */}
             <button onClick={handleDownloadPDF}>Télécharger le PDF</button>
-            <button onClick={handleSendEmail}>Envoyer le PDF par Email</button>
+           
 
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <p style={{ color: 'blue', margin: '0' }}>D2H réseau QUALITY AIR</p>
