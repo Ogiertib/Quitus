@@ -12,10 +12,9 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     const bodyFontSize = 10; // Taille de la police pour le corps
     const footerFontSize = 8; // Taille de la police pour le pied de page
 
-   
     // Ajouter les logos en haut à gauche et en haut à droite
-    doc.addImage(logoD2H, 'JPEG', margin -5, margin, 40, 20); // Logo D2H en haut à gauche
-    doc.addImage(logoQualibat, 'PNG', doc.internal.pageSize.getWidth() - margin - 40, margin -5, 40, 40); // Logo Qualibat en haut à droite
+    doc.addImage(logoD2H, 'JPEG', margin - 5, margin, 50, 20); // Logo D2H en haut à gauche
+    doc.addImage(logoQualibat, 'PNG', doc.internal.pageSize.getWidth() - margin - 40, margin - 5, 40, 40); // Logo Qualibat en haut à droite
 
     // Informations générales
     doc.setFontSize(titleFontSize);
@@ -115,8 +114,8 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
         }
     });
 
-    // Enregistrer le PDF
-    doc.save('Quitus_Logement.pdf');
+    // Retourner le PDF en tant que blob
+    return doc.output('blob');
 };
 
 export default generatePDF;

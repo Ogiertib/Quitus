@@ -26,50 +26,36 @@ const App = () => {
         setSignature(dataURL);
     };
 
-    const handleGeneratePDF = () => {
-        generatePDF(vmcData, roomData, signature, technician, apartmentName, project, floor);
+    const handleGeneratePDF = async () => {
+        const pdfBlob = generatePDF(vmcData, roomData, signature, technician, apartmentName, project, floor);
+        await sharePDF(pdfBlob);
+    };
+
+    const sharePDF = (pdfBlob) => {
+        const pdfUrl = URL.createObjectURL(pdfBlob);
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'Partagez votre PDF',
+                url: pdfUrl,
+            }).then(() => {
+                console.log('Partage réussi !');
+            }).catch((error) => {
+                console.error('Erreur lors du partage:', error);
+            });
+        } else {
+            // Fallback for browsers that do not support the Web Share API
+            console.warn('L’API de partage n’est pas prise en charge sur ce navigateur.');
+        }
     };
 
     return (
-        <div>
-            <h1>Quitus Logement</h1>
-            <div>
-                <label>
-                    Technicien:
-                    <input type="text" value={technician} onChange={(e) => setTechnician(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Appartement:
-                    <input type="text" value={apartmentName} onChange={(e) => setApartmentName(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Chantier:
-                    <input type="text" value={project} onChange={(e) => setProject(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Étage:
-                    <input type="text" value={floor} onChange={(e) => setFloor(e.target.value)} />
-                </label>
-                <br />
-            </div>
-            <div className="table-container">
-                <VmcTable onSave={handleSaveData} />
-            </div>
-            <div className="table-container">
-                <RoomTable onSave={handleSaveRoomData} />
-            </div>
-            <div className="signature-container">
-                <SignatureCapture onSave={handleSaveSignature} />
-            </div>
-            <button onClick={handleGeneratePDF}>Générer le PDF</button>
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <p style={{ color: 'blue', margin: '0' }}>D2H réseau QUALITY AIR</p>
-                <p style={{ color: 'black', margin: '0' }}>64 route de saint Thomas - 73540 ESSERT BLAY - 06 73 98 73 73</p>
-                <p style={{ color: 'black', margin: '0' }}>Siret 504 186 545 00027 / code APE 8122 Z / N°intracommunautaire FR4150418654</p>
-            </div>
+        <div className="App">
+            {/* Ajoutez ici vos composants pour la saisie des données */}
+            <VmcTable onSave={handleSaveData} />
+            <RoomTable onSave={handleSaveRoomData} />
+            <SignatureCapture onSave={handleSaveSignature} />
+            <button onClick={handleGeneratePDF}>Générer et partager le PDF</button>
         </div>
     );
 };

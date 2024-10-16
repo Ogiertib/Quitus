@@ -1,41 +1,82 @@
-
-.table-container {
-    margin: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.room-table-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: auto;
+    max-width: 600px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #f9f9f9;
+.room-item {
+    background-color: #f4f4f4;
+    padding: 2px;
+    margin-bottom: 2px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-thead {
-    background-color: #4CAF50;
+.room-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.remarks-photo-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between; /* Ajouté pour espacer les éléments */
+}
+
+.photo-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Espacement entre remarques et photo */
+}
+
+.photo-upload-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #007bff;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    transition: background-color 0.3s;
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+.photo-upload-icon.uploaded {
+    background-color: green;
 }
 
-tr:hover {
-    background-color: #f1f1f1;
+.delete-photo-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
 }
 
-input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-input[type="text"] {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
+.photo-name {
+    font-size: 12px;
+    color: #666;
+    margin-left: 10px; /* Ajouté pour espacer du bouton de suppression */
 }
