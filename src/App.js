@@ -37,7 +37,7 @@ const App = () => {
         const url = URL.createObjectURL(pdfBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'Quitus_Logement.pdf';
+        link.download = project+ '-' + technician+ '-' + apartmentName;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

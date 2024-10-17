@@ -18,7 +18,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     // Titre
     doc.setFontSize(titleFontSize);
     doc.setFont('helvetica', 'normal'); // Police normale pour le texte
-    doc.text('Quitus logement', margin + 70, margin + 10); // Centré
+    doc.text(project + technician + apartmentName, margin + 70, margin + 10); // Centré
 
     // Souligner le texte
     const textWidth = doc.getTextWidth('Quitus logement'); // Obtenir la largeur du texte
