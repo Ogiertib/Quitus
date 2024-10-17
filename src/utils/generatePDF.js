@@ -58,7 +58,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     // Dessiner les en-têtes pour VMC
     doc.rect(margin, currentY-5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
     doc.setFont('helvetica', 'bold'); // Définir la police en gras
-    doc.text('Nom', margin +2, currentY);
+    doc.text('Désignation', margin +2, currentY);
     doc.text('Présent', margin + columnWidth, currentY);
     doc.text('Remarques', margin -30 + columnWidth * 2, currentY);
     currentY += rowHeight;
@@ -81,7 +81,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     // Dessiner les en-têtes pour les pièces
     doc.rect(margin, currentY-5, columnWidth * 3, rowHeight, 'S'); // Dessiner une bordure autour de la ligne
     doc.setFont('helvetica', 'bold'); // Définir la police en gras
-    doc.text('Nom', margin +2, currentY);
+    doc.text('Désignation', margin +2, currentY);
     doc.text('Présent', margin + columnWidth, currentY);
     doc.text('Quantité/Remarques', margin -30 + columnWidth * 2, currentY);
     currentY += rowHeight;
@@ -115,7 +115,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     // Nouvelle page pour les photos
 doc.addPage();
 doc.setFontSize(titleFontSize);
-doc.text('Photos des VMC et des pièces:', margin, margin + 10);
+doc.text('Photos intervention:', margin, margin + 10);
 let photoY = margin + 30; // Position Y pour les photos
 
 const maxHeight = 100; // Hauteur maximale des photos
