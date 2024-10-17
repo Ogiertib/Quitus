@@ -14,16 +14,16 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     // Ajouter les logos en haut à gauche et en haut à droite
     doc.addImage(logoD2H, 'JPEG', margin - 5, margin, 50, 15); // Logo D2H en haut à gauche
    
-    doc.addImage(logoQualibat, 'PNG', doc.internal.pageSize.getWidth() - margin - 40, margin - 5, 40, 40); // Logo Qualibat en haut à droite
+    doc.addImage(logoQualibat, 'PNG', doc.internal.pageSize.getWidth() - margin -30, margin -5 , 25, 20); // Logo Qualibat en haut à droite
     // Titre
     doc.setFontSize(titleFontSize);
     doc.setFont('helvetica', 'normal'); // Police normale pour le texte
-    doc.text('Quitus logement', margin + 70, margin + 10); // Centré
+    doc.text('Quitus logement', margin + 70, margin + 15); // Centré
 
     // Souligner le texte
     const textWidth = doc.getTextWidth('Quitus logement'); // Obtenir la largeur du texte
     const textX = margin + 70;
-    const textY = margin + 11; // Position Y pour la ligne juste sous le texte
+    const textY = margin + 16; // Position Y pour la ligne juste sous le texte
     doc.line(textX, textY, textX + textWidth, textY); // Dessiner une ligne sous le texte
     // Informations générales
     doc.setFontSize(bodyFontSize);
