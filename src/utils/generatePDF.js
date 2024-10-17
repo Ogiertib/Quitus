@@ -83,7 +83,7 @@ const generatePDF = (vmcData, roomData, signature, technician, apartmentName, pr
     doc.setFont('helvetica', 'bold'); // Définir la police en gras
     doc.text('Nom', margin +2, currentY);
     doc.text('Présent', margin + columnWidth, currentY);
-    doc.text('Remarques', margin -30 + columnWidth * 2, currentY);
+    doc.text('Quantité/Remarques', margin -30 + columnWidth * 2, currentY);
     currentY += rowHeight;
 
     // Dessiner les lignes et les données pour les pièces

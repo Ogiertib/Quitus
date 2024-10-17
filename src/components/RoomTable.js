@@ -62,7 +62,7 @@ const RoomTable = ({ onSave }) => {
                                 type="text"
                                 value={room.remarks}
                                 onChange={e => handleChange(room.id, 'remarks', e.target.value)}
-                                placeholder="Remarques"
+                                placeholder="Quantitié/Remarques"
                                 className="remarks-input"
                             />
                             <div className="photo-container">
