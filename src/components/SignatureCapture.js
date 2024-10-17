@@ -16,7 +16,7 @@ const SignatureCapture = ({ onSave }) => {
     };
 
     return (
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h2>Signature</h2>
             <SignatureCanvas
                 ref={sigCanvas}
@@ -28,8 +28,10 @@ const SignatureCapture = ({ onSave }) => {
                     style: { border: '2px solid #000', borderRadius: '4px', backgroundColor: '#fff' },
                 }}
             />
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px'}} >
             <button onClick={clearSignature}>Effacer</button>
             <button onClick={saveSignature}>Sauvegarder la signature</button>
+            </div>
         </div>
     );
 };
