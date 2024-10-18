@@ -3,11 +3,11 @@ import './RoomTable.css';
 
 const RoomTable = ({ onSave }) => {
     const [roomData, setRoomData] = useState([
-        { id: 1, name: 'Entrées d\'air salon', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 2, name: 'Entrées d\'air chambres', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 3, name: 'Détalonnage portes', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 4, name: 'Obturation entrées d\'air', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 5, name: 'Trainasse', present: 'non', remarks: '', photo: '', photoName: '' },
+        { id: 1, name: 'Entrées d\'air salon', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 2, name: 'Entrées d\'air chambres', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 3, name: 'Détalonnage portes', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 4, name: 'Obturation entrées d\'air', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 5, name: 'Trainasse', present: 'Non', remarks: '', photo: '', photoName: '' },
     ]);
 
     useEffect(() => {

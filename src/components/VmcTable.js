@@ -3,13 +3,13 @@ import './VmcTable.css';
 
 const VmcTable = ({ onSave }) => {
     const [vmcData, setVmcData] = useState([
-        { id: 1, name: 'Bouche cuisine', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 2, name: 'Bouche salle de bain', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 3, name: 'Bouche salle de bain 2', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 4, name: 'Bouche WC', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 5, name: 'Bouche autre', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 6, name: 'Présence Hotte cuisine', present: 'non', remarks: '', photo: '', photoName: '' },
-        { id: 7, name: 'Démontage Hotte de cuisine', present: 'non', remarks: '', photo: '', photoName: '' },
+        { id: 1, name: 'Bouche cuisine', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 2, name: 'Bouche salle de bain', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 3, name: 'Bouche salle de bain 2', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 4, name: 'Bouche WC', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 5, name: 'Bouche autre', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 6, name: 'Présence Hotte cuisine', present: 'Non', remarks: '', photo: '', photoName: '' },
+        { id: 7, name: 'Démontage Hotte de cuisine', present: 'Non', remarks: '', photo: '', photoName: '' },
     ]);
 
     useEffect(() => {
