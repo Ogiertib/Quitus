@@ -3,7 +3,6 @@ import VmcTable from './components/VmcTable';
 import RoomTable from './components/RoomTable';
 import SignatureCapture from './components/SignatureCapture';
 import generatePDF from './utils/generatePDF';
-import emailjs from 'emailjs-com';
 import './App.css';
 
 const App = () => {
@@ -14,6 +13,7 @@ const App = () => {
     const [apartmentName, setApartmentName] = useState('');
     const [project, setProject] = useState('');
     const [floor, setFloor] = useState('');
+    const [types, setTypes] = useState('');
 
     const handleSaveData = (data) => {
         setVmcData(data);
@@ -28,7 +28,7 @@ const App = () => {
     };
 
     const handleGeneratePDF = () => {
-        const pdfBlob = generatePDF(vmcData, roomData, signature, technician, apartmentName, project, floor);
+        const pdfBlob = generatePDF(vmcData, roomData, signature, technician, apartmentName, project, floor, types);
         return pdfBlob;
     };
 
@@ -68,6 +68,18 @@ const App = () => {
                     Étage:
                     <input type="text" value={floor} onChange={(e) => setFloor(e.target.value)} />
                 </label>
+                <label>
+                Types d'appartement: 
+                <select value={types} onChange={(e) => setTypes(e.target.value)}>
+                <option value="">-</option>
+                    <option value="Studio">Studio</option>
+                    <option value="T2">T2</option>
+                    <option value="T3">T3</option>
+                    <option value="T4">T4</option>
+                    <option value="T5">T5</option>
+                    <option value="T6">T6</option>
+                </select>
+            </label>
             
             </div>
             <div className="table-container">

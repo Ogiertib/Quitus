@@ -7,6 +7,7 @@ const RoomTable = ({ onSave }) => {
         { id: 2, name: 'Entrées d\'air chambres', present: 'non', remarks: '', photo: '', photoName: '' },
         { id: 3, name: 'Détalonnage portes', present: 'non', remarks: '', photo: '', photoName: '' },
         { id: 4, name: 'Obturation entrées d\'air', present: 'non', remarks: '', photo: '', photoName: '' },
+        { id: 5, name: 'Trainasse', present: 'non', remarks: '', photo: '', photoName: '' },
     ]);
 
     useEffect(() => {

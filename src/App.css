@@ -12,7 +12,7 @@ h1 {
 
 input[type="text"] {
   padding: 4px;
-  margin: 5px;
+  margin: 2px;
   border: 1px solid #ccc;
   border-radius: 4px;
   width: 300px;
@@ -23,7 +23,34 @@ label {
   margin: 10px 0 5px;
   font-weight: bold;
   text-align: center; /* Centre le texte des labels */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  flex-direction: column;
 }
+select {
+ 
+  width: 100px;
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-left: 20px;
+}
+
+select:hover {
+  border-color: #007BFF; /* Change la couleur de la bordure lors du survol */
+}
+
+select:focus {
+  border-color: #0056b3; /* Change la couleur de la bordure quand l'élément est sélectionné */
+  background-color: #fff;
+}
+
 
 button {
   background-color: #007bff;
